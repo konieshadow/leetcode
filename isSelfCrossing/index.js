@@ -4,73 +4,42 @@
  */
 var isSelfCrossing = function(x) {
     'use strict';
-    let lines = [];
-    let currentPosition = [0, 0];
-    
     /**
-     * @param {number} num1
-     * @param {number} num2
-     * @param {number} num3
-     * @returns {boolean}
+     * 0 bigger
+     * 1 smaller with shorter ocassion
+     * 2 smaller with longger ocassion
      */
-    function isBetween(num1, num2, num3) {
-        if (num3 > num2) {
-            return num1 >= num2 && num1 <= num3; 
-        } else {
-            return num1 >= num3 && num1 <= num2;
-        }
-    }
+    let status = 0;
     
-    /**
-     * @param {number[]} line1
-     * @param {number[]} line2
-     * @return {boolean}
-     */
-    function checkLineCross(line1, line2) {
-        if (line1[0] === line1[2] && line2[0] === line1[2]) {
-            if (line1[1] === line2[1]) {
-                if (isBetween(line2[0], line1[0], line1[2]) || (line2[2] >= line1[0] && line2[2] <= line1[2])) {
-                    return true;
-                }
-            }
+    for (let i = 2; i < x.length; i++) {
+        if (status === 0 && x[i] > x[i-2]) {
+            continue;
         }
         
-        if (line1[1] === line1[3] && line2[1] === line1[3]) {
-            if (line1[0] === line2[0]) {
-                if ((line2[1] >= line1[1] && line2[1] <= line1[3]) || (line2[3] >= line1[1] && line2[3] <= line1[3])) {
-                    return true;
-                }
+        if (status === 0) {
+            let num1 = x[i - 2] || 0;
+            let num2 = x[i - 4] || 0;
+            
+            if (x[i] < num1 - num2) {
+                status = 1;
+            } else if (x[i] >= num1 - num2) {
+                status = 2;
             }
-        }
-    }
-    
-    for (let i = 0; i < x.length; i++) {
-        let direction = i % 4;
-        let step = x[i];
-        if (step === 0) continue;
-        
-        switch (direction) {
-            case 0:
-                let nextPosition = [currentPosition[0], currentPosition[1] - step];
-                let newLine = [currentPosition[0], currentPosition[1], nextPosition[0], nextPosition[1]];
-                
-                
-                break;
-                
-            case 1:
-                
-                break;
-                
-            case 2:
-                
-                break;
-                
-            case 3:
-                
-                break;
-        
-            default:
-                break;
+        } else if (status === 1) {
+            if (x[i] >= x[i-2]) {
+                return true;
+            } else {
+                continue;
+            }
+        } else if (status === 2) {
+            let num1 = x[i - 2] || 0;
+            let num2 = x[i - 4] || 0;
+            if (x[i] >= num1 - num2) {
+                return true;
+            } else {
+                status = 1;
+                continue;
+            }
         }
     }
     
@@ -82,4 +51,28 @@ var isSelfCrossing = function(x) {
  * mytest
  */
 var x = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18,19,19,20,20,21,21,22,22,23,23,24,24,25,25,26,26,27,27,28,28,29,29,30,30,31,31,32,32,33,33,34,34,35,35,36,36,37,37,38,38,39,39,40,40,41,41,42,42,43,43,44,44,45,45,46,46,47,47,48,48,49,49,50,50,51,51,52,52,53,53,54,54,55,55,56,56,57,57,58,58,59,59,60,60,61,61,62,62,63,63,64,64,65,65,66,66,67,67,68,68,69,69,70,70,71,71,72,72,73,73,74,74,75,75,76,76,77,77,78,78,79,79,80,80,81,81,82,82,83,83,84,84,85,85,86,86,87,87,88,88,89,89,90,90,91,91,92,92,93,93,94,94,95,95,96,96,97,97,98,98,99,99,500,99,99,98,98,97,97,96,96,95,95,94,94,93,93,92,92,91,91,90,90,89,89,88,88,87,87,86,86,85,85,84,84,83,83,82,82,81,81,80,80,79,79,78,78,77,77,76,76,75,75,74,74,73,73,72,72,71,71,70,70,69,69,68,68,67,67,66,66,65,65,64,64,63,63,62,62,61,61,60,60,59,59,58,58,57,57,56,56,55,55,54,54,53,53,52,52,51,51,50,50,49,49,48,48,47,47,46,46,45,45,44,44,43,43,42,42,41,41,40,40,39,39,38,38,37,37,36,36,35,35,34,34,33,33,32,32,31,31,30,30,29,29,28,28,27,27,26,26,25,25,24,24,23,23,22,22,21,21,20,20,19,19,18,18,17,17,16,16,15,15,14,14,13,13,12,12,11,11,10,10,9,9,8,8,7,7,6,6,5,5,4,4,3,3,2,2,1,1];
-console.log(isSelfCrossing(x));
+console.log(isSelfCrossing(x) + '===' + true);
+
+var x2 = [2, 1, 1, 2];
+console.log(isSelfCrossing(x2)+ '===' + true);
+
+var x3 = [1, 2, 3, 4];
+console.log(isSelfCrossing(x3)+ '===' + false);
+
+var x4 = [1, 1, 1, 1];
+console.log(isSelfCrossing(x4)+ '===' + true);
+
+var x5 = [3,3,4,2,2];
+console.log(isSelfCrossing(x5)+ '===' + false);
+
+var x6 = [3,3,3,2,1,1];
+console.log(isSelfCrossing(x6)+ '===' + false);
+
+var x7 = [1,1,2,1,1];
+console.log(isSelfCrossing(x7)+ '===' + true);
+
+var x8 = [1,1,3,2,1,1];
+console.log(isSelfCrossing(x8) + '===' + false)
+
+var x9 = [3,3,3,2,1,1];
+console.log(isSelfCrossing(x9) + '===' + false);
