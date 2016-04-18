@@ -3,7 +3,7 @@ Return all possible palindrome partitioning of s.
 For example, given s = "aab",  
 Return  
 ```javascript
-  [
+[
   ["aa","b"],
   ["a","a","b"]
 ]
