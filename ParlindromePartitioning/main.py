@@ -137,6 +137,7 @@ class Solution(object):
             l2.append(l[i][1])
         return l2
 
+    #组织要返回的list
     def getResult(self,s,l0):
         obj = Solution()
         l = obj.orderList(l0)
