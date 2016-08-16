@@ -1,4 +1,4 @@
-# leecode
-My leecode solutions.
-All JavaScript Now.
-And some code from my friends.
+# leetcode
+My leetcode solutions.
+Javascript & Go.
+Some solutions are from my friends.
