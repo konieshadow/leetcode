@@ -1,9 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
-
 func isValidSudoku(board [][]byte) bool {
 	for i := 0; i < 9; i++ {
 		if !isValidRow(board[i]) {
